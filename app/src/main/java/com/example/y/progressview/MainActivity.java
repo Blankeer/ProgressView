@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.y.progressview.view.ProgressBarView;
+import com.blanke.lib.view.ProgressBarView;
 
 public class MainActivity extends AppCompatActivity {
 

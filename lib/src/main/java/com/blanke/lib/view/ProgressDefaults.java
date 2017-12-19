@@ -1,4 +1,4 @@
-package com.example.y.progressview.view;
+package com.blanke.lib.view;
 
 import android.graphics.Color;
 

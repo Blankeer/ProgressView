@@ -4,7 +4,8 @@ package com.example.y.progressview;
 import android.os.Handler;
 import android.os.Message;
 
-import com.example.y.progressview.view.ProgressDefaults;
+import com.blanke.lib.view.ProgressDefaults;
+
 
 /**
  * by 12406 on 2016/5/25.

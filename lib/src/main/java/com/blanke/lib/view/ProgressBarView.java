@@ -1,4 +1,4 @@
-package com.example.y.progressview.view;
+package com.blanke.lib.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,10 +7,9 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
-import com.example.y.progressview.R;
+import com.blanke.lib.R;
 
 
 /**
@@ -93,7 +92,7 @@ public class ProgressBarView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         int anInt = getWidth() / 2;
-        int circlesRadius = (int) (anInt - circlesWidth / 2);//半径
+        int circlesRadius = (int) (anInt - (currentScheduleWidth - circlesWidth) - circlesWidth / 2);//半径
 
 
         //圆环
@@ -117,24 +116,27 @@ public class ProgressBarView extends View {
         //进度的圆环
         mPaint.setColor(currentProgressColor);
         mPaint.setStrokeWidth(currentScheduleWidth);
-        rectF.set(anInt - circlesRadius, anInt - circlesRadius, anInt + circlesRadius, anInt + circlesRadius);
+//        rectF.set(anInt - circlesRadius, anInt - circlesRadius, anInt + circlesRadius, anInt + circlesRadius);
+        rectF.set(currentScheduleWidth / 2, currentScheduleWidth / 2,
+                2 * anInt - currentScheduleWidth / 2, 2 * anInt - currentScheduleWidth / 2);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
         //选择风格
         switch (style) {
 
             case STROKE:
                 if (currentProgress != 0) {
                     mPaint.setStyle(Paint.Style.STROKE);
-                    canvas.drawArc(rectF, 0, 360 * currentProgress / ProgressDefaults.PROGRESS_BAR_MAX, false, mPaint);
+                    canvas.drawArc(rectF, -90, 360 * currentProgress / ProgressDefaults.PROGRESS_BAR_MAX, false, mPaint);
                 }
                 break;
             case FILL:
                 if (currentProgress != 0) {
                     mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-                    canvas.drawArc(rectF, 0, 360 * currentProgress / ProgressDefaults.PROGRESS_BAR_MAX, true, mPaint);
+                    canvas.drawArc(rectF, -90, 360 * currentProgress / ProgressDefaults.PROGRESS_BAR_MAX, true, mPaint);
                 }
                 break;
         }
-        Log.i("onDraw---->", "onDraw current");
+//        Log.i("onDraw---->", "onDraw current");
     }
 
 
@@ -151,7 +153,7 @@ public class ProgressBarView extends View {
         }
     }
 
-    public synchronized float getCurrentProgress() {
+    public float getCurrentProgress() {
         return currentProgress;
     }
 
