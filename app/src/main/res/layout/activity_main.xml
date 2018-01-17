@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.y.progressview.MainActivity">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/btn"
@@ -18,12 +14,12 @@
 
     <com.blanke.lib.view.ProgressBarView
         android:id="@+id/view"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:background="#4f00"
+        android:padding="10dp"
         app:circlesColor="#eee"
         app:circlesWidth="5dp"
         app:currentProgressColor="#f00"
         app:currentScheduleWidth="11dp" />
-</RelativeLayout>
+</LinearLayout>

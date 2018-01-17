@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.blanke.lib.R;
@@ -47,6 +48,9 @@ public class ProgressBarView extends View {
     //是否显示百分比
     private boolean isPercent;
     private RectF rectF;
+    private int wholeSize;
+    private int contentSize;
+    private int paddingSize;
 
 
     public ProgressBarView(Context context) {
@@ -87,19 +91,28 @@ public class ProgressBarView extends View {
 
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int w = getDefaultSize(MeasureSpec.getSize(widthMeasureSpec), widthMeasureSpec);
+        int h = getDefaultSize(MeasureSpec.getSize(heightMeasureSpec), heightMeasureSpec);
+        wholeSize = Math.min(w, h);
+        Log.d("pb", "w=" + w + ",h=" + h + ",wholeSize=" + wholeSize);
+        setMeasuredDimension(wholeSize, wholeSize);
+        paddingSize = Math.max(Math.max(Math.max(getPaddingLeft(), getPaddingTop()), getPaddingRight()), getPaddingBottom());
+        contentSize = wholeSize - 2 * paddingSize;
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int anInt = getWidth() / 2;
-        int circlesRadius = (int) (anInt - (currentScheduleWidth - circlesWidth) - circlesWidth / 2);//半径
+        int circlesRadius = (int) (contentSize / 2 - (currentScheduleWidth - circlesWidth) - circlesWidth / 2);//半径
 
 
         //圆环
         mPaint.setColor(circlesColor);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(circlesWidth);
-        canvas.drawCircle(anInt, anInt, circlesRadius, mPaint);
+        canvas.drawCircle(paddingSize + contentSize / 2, paddingSize + contentSize / 2, circlesRadius, mPaint);
 
         //百分比
         if (isPercent && style == STROKE) {
@@ -109,16 +122,15 @@ public class ProgressBarView extends View {
             mPaint.setTypeface(mTypeface);
             int percent = (int) (((float) currentProgress / (float) ProgressDefaults.PROGRESS_BAR_MAX) * 100);
             float textWidth = mPaint.measureText(percent + "%");
-            canvas.drawText(percent + "%", anInt - textWidth / 2, anInt + textSize / 2, mPaint);
+            canvas.drawText(percent + "%", contentSize / 2 - textWidth / 2, contentSize / 2 + textSize / 2, mPaint);
         }
 
 
         //进度的圆环
         mPaint.setColor(currentProgressColor);
         mPaint.setStrokeWidth(currentScheduleWidth);
-//        rectF.set(anInt - circlesRadius, anInt - circlesRadius, anInt + circlesRadius, anInt + circlesRadius);
-        rectF.set(currentScheduleWidth / 2, currentScheduleWidth / 2,
-                2 * anInt - currentScheduleWidth / 2, 2 * anInt - currentScheduleWidth / 2);
+        rectF.set(currentScheduleWidth / 2 + paddingSize, currentScheduleWidth / 2 + paddingSize,
+                wholeSize - paddingSize - currentScheduleWidth / 2, wholeSize - paddingSize - currentScheduleWidth / 2);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         //选择风格
         switch (style) {
