@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.blanke.lib.R;
@@ -96,7 +95,6 @@ public class ProgressBarView extends View {
         int w = getDefaultSize(MeasureSpec.getSize(widthMeasureSpec), widthMeasureSpec);
         int h = getDefaultSize(MeasureSpec.getSize(heightMeasureSpec), heightMeasureSpec);
         wholeSize = Math.min(w, h);
-        Log.d("pb", "w=" + w + ",h=" + h + ",wholeSize=" + wholeSize);
         setMeasuredDimension(wholeSize, wholeSize);
         paddingSize = Math.max(Math.max(Math.max(getPaddingLeft(), getPaddingTop()), getPaddingRight()), getPaddingBottom());
         contentSize = wholeSize - 2 * paddingSize;
@@ -148,7 +146,6 @@ public class ProgressBarView extends View {
                 }
                 break;
         }
-//        Log.i("onDraw---->", "onDraw current");
     }
 
 
