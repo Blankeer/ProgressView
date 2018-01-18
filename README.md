@@ -1,5 +1,6 @@
 # ProgressView
 
+![img](https://raw.githubusercontent.com/Blankeer/ProgressView/master/img.png)
 
 old
 ----
